@@ -34,7 +34,7 @@ module Importmap
         app.importmap.cache_sweeper(watches: app.config.importmap.cache_sweepers)
 
         ActiveSupport.on_load(:action_controller_base) do
-          before_action { Rails.application.importmap.cache_sweeper.execute_if_updated }
+          before_action :sweep_importmap_cache, -> { Rails.application.importmap.cache_sweeper.execute_if_updated }
         end
       end
     end
